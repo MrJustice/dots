@@ -1,0 +1,16 @@
+add_newline = false
+
+format = """$python$directory$git_branch$line_break [⟶ :](bold green)"""
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red) "
+
+[package]
+disabled = true
+
+[cmd_duration]
+min_time = 5000
+
+[python]
+format = '[(\($virtualenv\) )]($style)'

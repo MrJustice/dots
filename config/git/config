@@ -1,0 +1,21 @@
+[alias]
+	st = status -sb
+	c = commit
+	cm = commit -m
+	cma = commit --amend --no-edit
+	co = checkout
+	cop = checkout -
+	cod = checkout dev
+	com = checkout master
+	merge = merge --no-ff
+	ll = log --oneline
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[core]
+	editor = editor
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[user]
+	email = akiselev.prod@gmail.com
+	name = MrJustice

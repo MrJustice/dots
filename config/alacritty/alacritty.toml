@@ -1,0 +1,23 @@
+
+[window]
+blur = true
+opacity = 0.9
+decorations = "None"
+padding = {x = 10, y = 10}
+
+[font]
+size = 13
+
+[font.normal]
+family = "FiraCode Nerd Font"
+
+[general]
+import = [
+#  "~/.config/alacritty/themes/aura.toml",
+#  "~/.config/alacritty/themes/nordic.toml",
+#   "~/.config/alacritty/themes/onedark.toml",
+#   "~/.config/alacritty/themes/challenger_deep.toml",
+   "~/.config/alacritty/themes/everforest_dark.toml",
+#   "~/.config/alacritty/themes/catppuccin_macchiato.toml",
+#  "~/.config/alacritty/themes/github_dark_tritanopia.toml",
+]
