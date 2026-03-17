@@ -1,11 +1,33 @@
-.PHONY: all install link tmux alacritty nvim starship fonts help
+.PHONY: all install link deps tmux alacritty nvim starship fonts help
 
 DOTS_DIR := $(shell pwd)
 CONFIG_DIR := $(HOME)/.config
 
-all: install link fonts
+all: deps install link fonts
+
+deps:
+	@echo "→ Installing dependencies..."
+	sudo apt install -y curl unzip
 
 install: nvim tmux alacritty starship
+
+nvim:
+	@echo "→ Installing neovim..."
+	sudo add-apt-repository -y ppa:neovim-ppa/unstable
+	sudo apt update
+	sudo apt install -y neovim
+
+tmux:
+	@echo "→ Installing tmux..."
+	sudo apt install -y tmux
+
+alacritty:
+	@echo "→ Installing alacritty..."
+	sudo snap install alacritty --classic
+
+starship:
+	@echo "→ Installing starship..."
+	curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 link:
 	@echo "→ Linking configs..."
@@ -30,24 +52,6 @@ fonts:
 	cp /tmp/firacode-nf/*.ttf $(HOME)/.local/share/fonts/
 	fc-cache -fv
 	rm -rf /tmp/firacode-nf
-
-nvim:
-	@echo "→ Installing neovim..."
-	sudo add-apt-repository -y ppa:neovim-ppa/unstable
-	sudo apt update
-	sudo apt install -y neovim
-
-tmux:
-	@echo "→ Installing tmux..."
-	sudo apt install -y tmux
-
-alacritty:
-	@echo "→ Installing alacritty..."
-	sudo apt install -y alacritty
-
-starship:
-	@echo "→ Installing starship..."
-	curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 help:
 	@echo "Targets:"
