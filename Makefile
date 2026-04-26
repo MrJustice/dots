@@ -7,7 +7,8 @@ all: deps install link fonts
 
 deps:
 	@echo "→ Installing dependencies..."
-	sudo apt install -y curl unzip
+	sudo apt update
+	sudo apt install -y curl
 
 install: nvim tmux alacritty starship
 
@@ -44,14 +45,13 @@ link:
 
 fonts:
 	@echo "→ Installing FiraCode Nerd Font..."
-	mkdir -p /tmp/firacode-nf
-	curl -Lo /tmp/firacode-nf/FiraCode.zip \
-		https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
-	unzip -o /tmp/firacode-nf/FiraCode.zip -d /tmp/firacode-nf
+	curl -Lo fira_code.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz
+	mkdir -p fira_code
+	tar -xf fira_code.tar.xz -C fira_code
 	mkdir -p $(HOME)/.local/share/fonts
-	cp /tmp/firacode-nf/*.ttf $(HOME)/.local/share/fonts/
+	cp fira_code/*.ttf $(HOME)/.local/share/fonts/
 	fc-cache -fv
-	rm -rf /tmp/firacode-nf
+	rm -rf fira_code fira_code.tar.xz
 
 help:
 	@echo "Targets:"
