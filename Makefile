@@ -1,14 +1,9 @@
-.PHONY: all install link deps tmux alacritty nvim starship fonts help
+.PHONY: all install copy tmux alacritty nvim starship fonts help
 
 DOTS_DIR := $(shell pwd)
 CONFIG_DIR := $(HOME)/.config
 
-all: deps install link fonts
-
-deps:
-	@echo "→ Installing dependencies..."
-	sudo apt update
-	sudo apt install -y curl
+all: install copy fonts
 
 install: nvim tmux alacritty starship
 
@@ -28,24 +23,24 @@ alacritty:
 
 starship:
 	@echo "→ Installing starship..."
-	curl -sS https://starship.rs/install.sh | sh -s -- --yes
+	wget -qO- https://starship.rs/install.sh | sh -s -- --yes
 
-link:
-	@echo "→ Linking configs..."
+copy:
+	@echo "→ Copying configuration files..."
 	mkdir -p $(CONFIG_DIR)/tmux
-	ln -sf $(DOTS_DIR)/config/tmux/tmux.conf $(CONFIG_DIR)/tmux/tmux.conf
+	cp -f $(DOTS_DIR)/config/tmux/tmux.conf $(CONFIG_DIR)/tmux/tmux.conf
 	mkdir -p $(CONFIG_DIR)/alacritty
-	ln -sf $(DOTS_DIR)/config/alacritty/alacritty.toml $(CONFIG_DIR)/alacritty/alacritty.toml
-	ln -sf $(DOTS_DIR)/config/alacritty/themes $(CONFIG_DIR)/alacritty/themes
-	ln -sf $(DOTS_DIR)/config/starship/starship.toml $(CONFIG_DIR)/starship.toml
-	ln -sf $(DOTS_DIR)/config/bash/.bashrc $(HOME)/.bashrc
+	cp -f $(DOTS_DIR)/config/alacritty/alacritty.toml $(CONFIG_DIR)/alacritty/alacritty.toml
+	cp -rf $(DOTS_DIR)/config/alacritty/themes $(CONFIG_DIR)/alacritty/themes
+	cp -f $(DOTS_DIR)/config/starship/starship.toml $(CONFIG_DIR)/starship.toml
+	cp -f $(DOTS_DIR)/config/bash/.bashrc $(HOME)/.bashrc
 	mkdir -p $(CONFIG_DIR)/git
-	ln -sf $(DOTS_DIR)/config/git/config $(CONFIG_DIR)/git/config
+	cp -f $(DOTS_DIR)/config/git/config $(CONFIG_DIR)/git/config
 	@echo "✓ Done"
 
 fonts:
 	@echo "→ Installing FiraCode Nerd Font..."
-	curl -Lo fira_code.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz
+	wget -O fira_code.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz
 	mkdir -p fira_code
 	tar -xf fira_code.tar.xz -C fira_code
 	mkdir -p $(HOME)/.local/share/fonts
@@ -55,9 +50,9 @@ fonts:
 
 help:
 	@echo "Targets:"
-	@echo "  make          - install everything + link configs"
+	@echo "  make          - install everything + copy configs"
 	@echo "  make install  - install all tools"
-	@echo "  make link     - symlink configs to home"
+	@echo "  make copy     - copy configuration files"
 	@echo "  make fonts    - install FiraCode Nerd Font"
 	@echo "  make nvim     - install neovim"
 	@echo "  make tmux     - install tmux only"
