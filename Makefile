@@ -19,7 +19,9 @@ tmux:
 
 alacritty:
 	@echo "→ Installing alacritty..."
-	sudo snap install alacritty --classic
+	sudo add-apt-repository -y ppa:aslatter/ppa
+	sudo apt update
+	sudo apt install -y alacritty
 
 starship:
 	@echo "→ Installing starship..."
